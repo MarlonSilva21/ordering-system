@@ -10,9 +10,9 @@ public interface CrudMethodsInterface<T> {
 
     T findByName(String name);
 
-    T insertCategory(T obj);
+    T insert(T obj);
 
-    T updateCategory(T obj, Long id);
+    T update(T obj, Long id);
 
-    void deleteCategory(Long id);
+    void delete(Long id);
 }

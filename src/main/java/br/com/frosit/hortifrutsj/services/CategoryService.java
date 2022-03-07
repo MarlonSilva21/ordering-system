@@ -27,19 +27,19 @@ public class CategoryService implements CrudMethodsInterface<Category>{
     }
 
     @Override
-    public Category insertCategory(Category obj) {
+    public Category insert(Category obj) {
         return categoryRepository.save(obj);
     }
 
     @Override
-    public Category updateCategory(Category obj, Long id) {
+    public Category update(Category obj, Long id) {
         Category entity = findById(id);
         updateDataCategory(entity, obj);
         return categoryRepository.save(entity);
     }
 
     @Override
-    public void deleteCategory(Long id) {
+    public void delete(Long id) {
         findById(id);
         categoryRepository.deleteById(id);
     }
