@@ -31,12 +31,12 @@ public class TestConfig implements CommandLineRunner {
         Product p2 = new Product(null, "Alface", 5.00 );
         Product p3 = new Product(null, "Banana", 7.00);
 
-        cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
-        cat2.getProducts().add(p2);
+        cat1.getProducts().addAll(Arrays.asList(p1, p2));
+        cat2.getProducts().add(p3);
 
         p1.getCategories().add(cat1);
-        p2.getCategories().addAll(Arrays.asList(cat1, cat2));
-        p3.getCategories().add(cat1);
+        p2.getCategories().add(cat1);
+        p3.getCategories().add(cat2);
 
         categoryRepository.saveAll(Arrays.asList(cat1, cat2));
         productRepository.saveAll(Arrays.asList(p1, p2, p3));

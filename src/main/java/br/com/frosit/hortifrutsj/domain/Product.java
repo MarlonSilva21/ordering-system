@@ -1,5 +1,7 @@
 package br.com.frosit.hortifrutsj.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Product implements Serializable {
 
     private Double price;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable( name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),

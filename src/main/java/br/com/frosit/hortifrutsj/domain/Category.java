@@ -1,5 +1,8 @@
 package br.com.frosit.hortifrutsj.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class Category implements Serializable {
 
     private String name;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "categories")
     private final List<Product> products = new ArrayList<>();
 
