@@ -1,6 +1,7 @@
 package br.com.frosit.hortifrutsj.domain;
 
 import br.com.frosit.hortifrutsj.domain.enums.ClientType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -34,11 +35,12 @@ public class Client implements Serializable {
         this.tipoCliente = tipoCliente.getCode();
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private final List<Address> endereco = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "tb_telefones")
-    private final Set<String> telefone = new HashSet<>();
+    private final Set<String> telefones = new HashSet<>();
 
 }
