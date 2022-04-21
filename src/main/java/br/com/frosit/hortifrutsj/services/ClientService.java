@@ -1,6 +1,5 @@
 package br.com.frosit.hortifrutsj.services;
 
-import br.com.frosit.hortifrutsj.domain.Category;
 import br.com.frosit.hortifrutsj.domain.Client;
 import br.com.frosit.hortifrutsj.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;

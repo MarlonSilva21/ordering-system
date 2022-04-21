@@ -1,20 +1,15 @@
 package br.com.frosit.hortifrutsj.configuration;
 
-import br.com.frosit.hortifrutsj.domain.Address;
-import br.com.frosit.hortifrutsj.domain.Category;
-import br.com.frosit.hortifrutsj.domain.Client;
-import br.com.frosit.hortifrutsj.domain.Product;
+import br.com.frosit.hortifrutsj.domain.*;
 import br.com.frosit.hortifrutsj.domain.enums.ClientType;
-import br.com.frosit.hortifrutsj.repositories.AdressRespository;
-import br.com.frosit.hortifrutsj.repositories.CategoryRepository;
-import br.com.frosit.hortifrutsj.repositories.ClientRepository;
-import br.com.frosit.hortifrutsj.repositories.ProductRepository;
+import br.com.frosit.hortifrutsj.domain.enums.StatusPayment;
+import br.com.frosit.hortifrutsj.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @Configuration
@@ -31,7 +26,13 @@ public class TestConfig implements CommandLineRunner {
     private ClientRepository clientRepository;
 
     @Autowired
-    private AdressRespository adressRespository;
+    private AdressRepository adressRespository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -55,7 +56,7 @@ public class TestConfig implements CommandLineRunner {
 
         Client cl1 = new Client(null, "Marlon", "marlon@gmail.com", "00999866723", ClientType.PESSOA_FISICA);
 
-        cl1.getTelefone().addAll(Arrays.asList("98677645", "98443409"));
+        cl1.getTelefones().addAll(Arrays.asList("98677645", "98443409"));
 
         clientRepository.save(cl1);
 
@@ -65,6 +66,19 @@ public class TestConfig implements CommandLineRunner {
         cl1.getEndereco().addAll(Arrays.asList(e1, e2));
 
         adressRespository.saveAll(Arrays.asList(e1, e2));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Order ped1 = new Order(null, sdf.parse("25/04/2022 10:00"), cl1, e1);
+        Order ped2 = new Order(null, sdf.parse("22/04/2022 12:00"), cl1, e2);
+
+        Payment pgto1 = new CardPayment(null, StatusPayment.QUITADO, ped1, 6);
+        ped1.setPayment(pgto1);
+
+        cl1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+        orderRepository.saveAll(Arrays.asList(ped1, ped2));
+        paymentRepository.save(pgto1);
 
     }
 }
