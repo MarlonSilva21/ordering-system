@@ -1,5 +1,7 @@
 package br.com.frosit.hortifrutsj.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,17 +22,22 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Payment payment;
 
+    @JsonIgnoreProperties("pedidos")
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Client cliente;
 
+
+
     @ManyToOne
-    @JoinColumn(name = "enderedo_de_entrega_id")
+    @JoinColumn(name = "endereco_de_entrega_id")
     private Address enderecoDeEntrega;
 
     @OneToMany(mappedBy="id.order")
@@ -42,4 +49,6 @@ public class Order implements Serializable {
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
+
+
 }

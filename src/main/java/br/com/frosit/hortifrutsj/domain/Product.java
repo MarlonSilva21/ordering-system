@@ -1,13 +1,16 @@
 package br.com.frosit.hortifrutsj.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_products")
@@ -15,7 +18,7 @@ import java.util.*;
 @Data
 public class Product implements Serializable {
 
-    @JsonBackReference
+    @JsonIgnoreProperties("products")
     @ManyToMany
     @JoinTable(name = "tb_product_category",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -28,6 +31,7 @@ public class Product implements Serializable {
     private String name;
     private Double price;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private final Set<OrderItem> itensDePedido = new HashSet<>();
 
@@ -37,6 +41,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnoreProperties
     public List<Order> getPedidos() {
         List<Order> listaDePedidos = new ArrayList<>();
         itensDePedido.forEach((OrderItem x) -> listaDePedidos.add(x.getOrder()));

@@ -1,9 +1,9 @@
 package br.com.frosit.hortifrutsj.domain;
 
 import br.com.frosit.hortifrutsj.domain.enums.ClientType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,14 +35,15 @@ public class Client implements Serializable {
         this.tipoCliente = tipoCliente.getCode();
     }
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
+    @JsonIgnoreProperties("cliente")
     private final List<Address> endereco = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "tb_telefones")
     private final Set<String> telefones = new HashSet<>();
 
+    @JsonIgnoreProperties("cliente")
     @OneToMany(mappedBy = "cliente")
     private final List<Order> pedidos = new ArrayList<>();
 

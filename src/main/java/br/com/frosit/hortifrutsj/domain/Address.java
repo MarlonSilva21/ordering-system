@@ -1,12 +1,14 @@
 package br.com.frosit.hortifrutsj.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_address")
@@ -24,8 +26,9 @@ public class Address implements Serializable {
     private String bairro;
     private String cep;
 
-    @JsonBackReference
+    @JsonIgnoreProperties("endereco")
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Client cliente;
+
 }

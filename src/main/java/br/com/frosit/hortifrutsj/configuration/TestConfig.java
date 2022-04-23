@@ -64,7 +64,7 @@ public class TestConfig implements CommandLineRunner {
         clientRepository.save(cl1);
 
         Address e1 = new Address(null, "Rua Flores", "300", "Bl 1 apto 78", "Jardim", "09876638", cl1);
-        Address e2 = new Address(null, "Av Matos", "105", "Sala 900", "Centro", "09876638", cl1);
+        Address e2 = new Address(null, "Av Matos", "105", "Sala 900", "Centro", "09876638", cl1 );
 
         cl1.getEndereco().addAll(Arrays.asList(e1, e2));
 
@@ -83,20 +83,9 @@ public class TestConfig implements CommandLineRunner {
         orderRepository.saveAll(Arrays.asList(ped1, ped2));
         paymentRepository.save(pgto1);
 
-        OrderItem ip1 = new OrderItem(ped1, p1, 0.00, 1, 2000.00);
-        OrderItem ip2 = new OrderItem(ped1, p3, 0.00, 2, 80.00);
-        OrderItem ip3 = new OrderItem(ped2, p2, 100.00, 1, 800.00);
-
-
-        ped1.getItensDePedido().addAll(Arrays.asList(ip1, ip2));
-        ped2.getItensDePedido().add(ip3);
-
-
-        p1.getItensDePedido().add(ip1);
-        p2.getItensDePedido().add(ip3);
-        p3.getItensDePedido().add(ip1);
-
-
+        OrderItem ip1 = new OrderItem(ped1, p1, 0.00, 1, 3.00);
+        OrderItem ip2 = new OrderItem(ped1, p3, 0.00, 2, 7.00);
+        OrderItem ip3 = new OrderItem(ped2, p2, 0.00, 1, 5.00);
 
         orderItemRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 

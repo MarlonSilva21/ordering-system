@@ -1,7 +1,8 @@
 package br.com.frosit.hortifrutsj.domain;
 
 import br.com.frosit.hortifrutsj.domain.enums.StatusPayment;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public abstract class Payment implements Serializable {
     private Long id;
     private Integer status;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
