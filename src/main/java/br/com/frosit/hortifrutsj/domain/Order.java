@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_pedidos")
@@ -30,6 +32,9 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "enderedo_de_entrega_id")
     private Address enderecoDeEntrega;
+
+    @OneToMany(mappedBy="id.order")
+    private final Set<OrderItem> itensDePedido = new HashSet<>();
 
     public Order(Long id, Date instant, Client cliente, Address enderecoDeEntrega) {
         this.id = id;
